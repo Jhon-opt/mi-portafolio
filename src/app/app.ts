@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HeroSectionComponent } from "./components/heroSection/heroSection.component";
+import { NavBarComponent } from "./shared/navBar/navBar.component";
+import { MediaPlayerComponent } from "./shared/mediaPlayer/mediaPlayer.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HeroSectionComponent, NavBarComponent, MediaPlayerComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
