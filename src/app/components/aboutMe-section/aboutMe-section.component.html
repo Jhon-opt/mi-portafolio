@@ -1,7 +1,7 @@
 <!-- About Me Section -->
 <section
   id="about"
-  class="h-screen flex items-center justify-center px-6 bg-gradient-to-b from-gray-100 to-purple-100 dark:bg-gray-900"
+  class="h-screen flex items-center justify-center px-6 bg-gradient-to-b from-gray-100 to-purple-200 dark:bg-gray-900"
 >
   <div class="max-w-5xl mx-auto">
     <h2 class="text-4xl md:text-5xl font-mono font-bold mb-10 text-center">
@@ -9,7 +9,7 @@
     </h2>
 
     <!-- Foto flotante con shape -->
-    <div class="md:float-left md:mr-8 mb-6 md:mb-0">
+    <div class="md:float-left md:mr-8 mb-6 md:mb-0 shape-outside-circle">
       <img
         src="https://avatars.githubusercontent.com/u/000000?v=4"
         alt="Foto de Jhon Mario"
@@ -55,3 +55,11 @@
     </div>
   </div>
 </section>
+
+<style>
+  @layer utilities {
+    .shape-outside-circle {
+      shape-outside: circle();
+    }
+  }
+</style>
