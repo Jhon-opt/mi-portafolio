@@ -5,10 +5,11 @@ import { NavBarComponent } from "./shared/navBar/navBar.component";
 import { MediaPlayerComponent } from "./shared/mediaPlayer/mediaPlayer.component";
 import { AboutMeSectionComponent } from "./components/aboutMe-section/aboutMe-section.component";
 import { ProjectsSectionComponent } from "./components/projectsSection/projectsSection.component";
+import { ContacSectionComponent } from "./components/contacSection/contacSection.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeroSectionComponent, NavBarComponent, MediaPlayerComponent, AboutMeSectionComponent, ProjectsSectionComponent],
+  imports: [RouterOutlet, HeroSectionComponent, NavBarComponent, MediaPlayerComponent, AboutMeSectionComponent, ProjectsSectionComponent, ContacSectionComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

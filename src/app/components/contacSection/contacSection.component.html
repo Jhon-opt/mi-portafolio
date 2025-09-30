@@ -1,0 +1,89 @@
+<section id="contact" class="min-h-screen flex items-center justify-center px-6 bg-gradient-to-b from-gray-100 to-purple-500 dark:bg-gray-900">
+  <div class="max-w-2xl w-full bg-white/30 backdrop-blur-md dark:bg-gray-800/60 backdrop-blur-sm border border-gray-100 dark:border-gray-700 rounded-xl p-8 shadow-lg">
+    <h3 class="text-3xl font-mono font-bold mb-4 text-center text-gray-900 dark:text-white">Contactame</h3>
+
+    @if (isSubmitted()) {
+      <div class="mb-4 p-3 rounded-md bg-green-50 text-green-700 border border-green-100">
+        ✅ Mensaje enviado correctamente.
+      </div>
+    }
+
+    @if (hasError()) {
+      <div class="mb-4 p-3 rounded-md bg-red-50 text-red-700 border border-red-100">
+        ⚠️ Verifica los campos antes de enviar.
+      </div>
+    }
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-4" novalidate>
+      <!-- Nombre -->
+      <div>
+        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200">Nombre</label>
+        <input formControlName="name" type="text"
+               class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-300 dark:bg-gray-900 dark:border-gray-700"
+               placeholder="Tu nombre" />
+        @if (hasControlError('name','required')) {
+          <p class="text-xs text-red-600 mt-1">El nombre es requerido.</p>
+        }
+        @if (hasControlError('name','minlength')) {
+          <p class="text-xs text-red-600 mt-1">El nombre es muy corto.</p>
+        }
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200">Correo</label>
+        <input formControlName="email" type="email"
+               class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-300 dark:bg-gray-900 dark:border-gray-700"
+               placeholder="correo@ejemplo.com" />
+        @if (hasControlError('email','required')) {
+          <p class="text-xs text-red-600 mt-1">El correo es requerido.</p>
+        }
+        @if (hasControlError('email','email')) {
+          <p class="text-xs text-red-600 mt-1">Ingresa un correo válido.</p>
+        }
+      </div>
+
+      <!-- Asunto -->
+      <div>
+        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200">Asunto</label>
+        <input formControlName="subject" type="text"
+               class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-300 dark:bg-gray-900 dark:border-gray-700"
+               placeholder="Motivo del contacto" />
+        @if (hasControlError('subject','required')) {
+          <p class="text-xs text-red-600 mt-1">El asunto es requerido.</p>
+        }
+        @if (hasControlError('subject','minlength')) {
+          <p class="text-xs text-red-600 mt-1">El asunto es muy corto.</p>
+        }
+      </div>
+
+      <!-- Mensaje -->
+      <div>
+        <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200">Mensaje</label>
+        <textarea formControlName="message" rows="5"
+                  class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-300 dark:bg-gray-900 dark:border-gray-700"
+                  placeholder="Escribe tu mensaje..."></textarea>
+        @if (hasControlError('message','required')) {
+          <p class="text-xs text-red-600 mt-1">El mensaje es requerido.</p>
+        }
+        @if (hasControlError('message','minlength')) {
+          <p class="text-xs text-red-600 mt-1">El mensaje debe tener mínimo 10 caracteres.</p>
+        }
+      </div>
+
+      <!-- Botones -->
+      <div class="flex justify-between items-center">
+        <button type="submit"
+                [disabled]="contactForm.invalid || isPosting()"
+                class="px-6 py-2 rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50">
+          @if (isPosting()) { Enviando... } @else { Enviar }
+        </button>
+
+        <button type="button" (click)="contactForm.reset()"
+                class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+          Limpiar
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
