@@ -1,14 +1,15 @@
 <div class="fixed bottom-4 right-4 w-80">
   <!-- Contenedor con animación + hover -->
   <div
-    class="bg-white/30 backdrop-blur-md rounded-lg shadow-xl transition-all duration-500 ease-in-out overflow-hidden
-           hover:-translate-y-2 hover:shadow-2xl"
+    class="bg-white/30 backdrop-blur-md rounded-lg shadow-xl  transition-all duration-500 ease-in-out overflow-hidden
+           hover:-translate-y-2 hover:shadow-2xl   border border-gray-100"
     [class.max-h-12]="!isExpanded"
     [class.max-h-[600px]]="isExpanded"
+
   >
     <!-- Header (siempre visible) -->
     <div
-      class="h-12 flex items-center justify-between px-4 cursor-pointer"
+      class="h-12 flex items-center  justify-between px-4 cursor-pointer"
       (click)="isExpanded = !isExpanded"
     >
       <span class="text-gray-800 font-medium">🎵 Music Player</span>
