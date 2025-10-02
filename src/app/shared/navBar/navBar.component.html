@@ -1,12 +1,53 @@
-<nav class="sticky top-0 z-10 bg-white/30 backdrop-blur-md">
-  <div class="max-w-5xl mx-auto px-4">
-    <div class="flex items-center justify-between h-16">
-      <span class="text-2xl text-gray-900 font-semibold">Logo</span>
-      <div class="flex space-x-4 text-gray-900">
-        <a href="#">Dashboard</a>
-        <a href="#">About</a>
-        <a href="#">Projects</a>
-        <a href="#">Contact</a>
+<nav class="sticky top-0 z-10 bg-purple-300/30 dark:bg-gray-900/30 backdrop-blur-md border-b border-gray-200 dark:border-gray-600" style="backdrop-filter: blur(12px); background-color: rgba(255, 255, 255, 0.1);">
+  <div class="max-w mx-auto px-4">
+    <div class="grid grid-cols-3 items-center h-16">
+      <!-- Logo al inicio (izquierda) - Columna 1 -->
+      <span class="text-2xl text-gray-900 dark:text-white font-semibold">Logo</span>
+
+      <!-- Enlaces centrados - Columna 2 -->
+      <div class="flex justify-center space-x-6">
+        <a href="#" class="hover:text-indigo-500 dark:hover:text-indigo-400">Dashboard</a>
+        <a href="#" class="hover:text-indigo-500 dark:hover:text-indigo-400">About</a>
+        <a href="#" class="hover:text-indigo-500 dark:hover:text-indigo-400">Projects</a>
+        <a href="#" class="hover:text-indigo-500 dark:hover:text-indigo-400">Contact</a>
+      </div>
+
+      <!-- Toggle al final (derecha) - Columna 3 -->
+      <div class="flex items-center justify-end">
+        <!-- Sol (Light Mode) fuera del label -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 stroke-current text-yellow-500 mr-1"
+          fill="none"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+        </svg>
+
+        <!-- Label solo para el checkbox -->
+        <label class="inline-flex items-center cursor-pointer" style="padding: 2px; height: 24px;">
+          <input
+            type="checkbox"
+            class="toggle toggle-md"
+            [checked]="themeService.theme() === 'dark'"
+            (change)="toggleTheme()"
+          />
+        </label>
+
+        <!-- Luna (Dark Mode) fuera del label -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 stroke-current text-gray-800 dark:text-white ml-1"
+          fill="none"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
       </div>
     </div>
   </div>
