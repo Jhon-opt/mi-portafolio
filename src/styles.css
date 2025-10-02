@@ -1,2 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  @apply  bg-purple-200   dark:bg-gray-900;
+}
+
 @import "tailwindcss";
+@plugin "daisyui";
+
+@custom-variant dark (&:where(.dark, .dark *));
