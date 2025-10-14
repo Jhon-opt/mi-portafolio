@@ -1,18 +1,46 @@
 <nav
   class="sticky top-0 z-10 bg-purple-300/30 dark:bg-gray-900/30 backdrop-blur-md border-b border-gray-200 dark:border-gray-600"
-  style="backdrop-filter: blur(12px); background-color: rgba(255, 255, 255, 0.1);"
+  style="
+    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.1);
+  "
 >
   <div class="max-w mx-auto px-4">
     <div class="flex items-center justify-between h-16">
       <!-- Logo al inicio -->
-      <span class="text-2xl text-gray-900 dark:text-white font-semibold">Logo</span>
+      <!-- <span class="text-2xl text-gray-900 dark:text-white font-semibold">Logo</span> -->
+      <img
+        src="resources/github (1).png"
+        alt="Logo"
+        class="h-10 w-auto object-contain rounded-2xl"
+      />
 
       <!-- Links en pantallas medianas y grandes -->
       <div class="hidden md:flex space-x-6">
-        <button (click)="selectSection('dashboard')" class="text-gray-900 hover:text-indigo-500  dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer">Dashboard</button>
-        <button (click)="selectSection('about')" class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer">About</button>
-        <button (click)="selectSection('projects')" class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer">Projects</button>
-        <button (click)="selectSection('contact')" class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer">Contact</button>
+        <button
+          (click)="selectSection('dashboard')"
+          class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer"
+        >
+          Inicio
+        </button>
+        <button
+          (click)="selectSection('about')"
+          class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer"
+        >
+          Sobre mi
+        </button>
+        <button
+          (click)="selectSection('projects')"
+          class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer"
+        >
+          Proyectos
+        </button>
+        <button
+          (click)="selectSection('contact')"
+          class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer"
+        >
+          Contáctame
+        </button>
       </div>
 
       <!-- Parte derecha: toggle + botón hamburguesa -->
@@ -79,12 +107,32 @@
 
     <!-- Menú colapsable en mobile -->
     @if (isMenuOpen()) {
-      <div class="md:hidden flex flex-col space-y-2 mt-2">
-        <button (click)="selectSection('dashboard')" class="text-black hover:text-indigo-500 dark:text-gray-50  dark:hover:text-indigo-400">Dashboard</button>
-        <button (click)="selectSection('about')" class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400">About</button>
-        <button (click)="selectSection('projects')" class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400">Projects</button>
-        <button (click)="selectSection('contact')" class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400">Contact</button>
-      </div>
+    <div class="md:hidden flex flex-col space-y-2 mt-2">
+      <button
+        (click)="selectSection('dashboard')"
+        class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400"
+      >
+        Inicio
+      </button>
+      <button
+        (click)="selectSection('about')"
+        class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400"
+      >
+        Sobre mi
+      </button>
+      <button
+        (click)="selectSection('projects')"
+        class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400"
+      >
+        Proyectos
+      </button>
+      <button
+        (click)="selectSection('contact')"
+        class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400"
+      >
+        Contáctame
+      </button>
+    </div>
     }
   </div>
 </nav>

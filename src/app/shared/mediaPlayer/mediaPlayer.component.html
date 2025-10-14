@@ -29,7 +29,7 @@
 
     <!-- Contenido -->
     @if (playlist.length > 0) {
-      <div class="relative p-6 overflow-y-auto max-h-[calc(100vh-6rem)]">
+      <div class="relative p-6  overflow-y-auto max-h-[calc(100vh-6rem)]">
         <!-- Imagen y título -->
         <img
           [src]="currentTrack?.thumbnail"
@@ -70,7 +70,7 @@
         </div>
 
         <!-- Progreso visual (placeholder por ahora) -->
-        <div class="mt-6 bg-gray-200 h-2 rounded-full overflow-hidden">
+        <!-- <div class="mt-6 bg-gray-200 h-2 rounded-full overflow-hidden">
           <div
             class="bg-purple-500 h-2 rounded-full transition-all duration-300"
             style="width: 50%"
@@ -82,10 +82,10 @@
         >
           <span>--:--</span>
           <span>--:--</span>
-        </div>
+        </div> -->
 
         <!-- Lista de canciones -->
-        <ul class="mt-6 space-y-3">
+        <ul class="mt-6 space-y-1 pb-3">
           @for (song of playlist; track song.videoId; let i = $index) {
             <li
               (click)="currentIndex = i; loadVideo()"

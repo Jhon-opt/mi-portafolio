@@ -2,12 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+
   <title>MiPortafolio</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="github.png">
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <!-- <script src="https://www.youtube.com/iframe_api"></script> -->
+   <style>
+    /* Estilos mínimos visibles antes de que cargue Tailwind */
+    body {
+      background-color: #e9d5ff; /* bg-purple-200 */
+      color: #111827; /* texto base */
+    }
 
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #111827; /* dark:bg-gray-900 */
+        color: #f9fafb;
+      }
+    }
+  </style>
+
+  <!-- Carga no bloqueante de Tailwind (styles.css) -->
+  <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
 </head>
 <body>
   <app-root></app-root>

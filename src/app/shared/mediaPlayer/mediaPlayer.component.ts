@@ -81,6 +81,7 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadPlaylist();
+    this.loadYouTubeApi();
   }
 
   ngOnDestroy(): void {
@@ -129,6 +130,18 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
       setTimeout(() => this.initPlayer(), 500);
     }
   }
+
+  /** 🔹 Carga diferida del script de YouTube para evitar render-blocking */
+private loadYouTubeApi(): void {
+  if (typeof window !== 'undefined' && !window.YT) {
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    tag.defer = true;
+    tag.async = true;
+    document.body.appendChild(tag);
+  }
+}
+
 
   /** 🔹 Maneja cambios de estado (play, pause, end) */
   onStateChange(event: YT.PlayerEvent): void {
