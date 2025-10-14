@@ -40,6 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-# 🔐 Angular environment files (no subir claves)
-src/environments/environment.ts
-src/environments/environment.prod.ts
+
+src/app/environments/environment.ts
+src/app/environments/environment.prod.ts

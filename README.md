@@ -73,10 +73,11 @@ For more information on using the Angular CLI, including detailed command refere
 
 1. Clona este repositorio:
    ```bash
-   git clone https://github.com/tuusuario/trendylook.git
-   cd trendylook
+   git clone https://github.com/Jhon-opt/mi-portafolio.git
+   cd mi-portafolio
    
 2. Instala las dependencias:
+
 npm install
 
 3. Configura las variables de entorno (ver sección abajo).
