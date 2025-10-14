@@ -1,18 +1,24 @@
-<div class="fixed bottom-4 right-4 w-80">
-  <!-- Contenedor con animación + hover -->
+<div
+  class="fixed bottom-4 w-80
+         left-1/2 -translate-x-1/2
+         md:right-4 md:left-auto md:translate-x-0 z-50"
+>
+  <!-- Contenedor animado -->
   <div
-    class="bg-white/20 dark:bg-gray-700/30 backdrop-blur-md rounded-lg shadow-xl  transition-all duration-500 ease-in-out overflow-hidden
-           hover:-translate-y-2 hover:shadow-2xl   border border-gray-100 dark:border-gray-400"
+    class="bg-white/20 dark:bg-gray-700/30 backdrop-blur-md rounded-lg shadow-xl
+           transition-all duration-500 ease-in-out overflow-hidden
+           hover:-translate-y-2 hover:shadow-2xl border border-gray-100 dark:border-gray-400"
     [class.max-h-12]="!isExpanded"
     [class.max-h-[600px]]="isExpanded"
-
   >
-    <!-- Header (siempre visible) -->
+    <!-- Header -->
     <div
-      class="h-12 flex items-center  justify-between px-4 cursor-pointer"
+      class="h-12 flex items-center justify-between px-4 cursor-pointer select-none"
       (click)="isExpanded = !isExpanded"
     >
-      <span class="text-gray-800 dark:text-gray-50 font-medium">🎵 Music Player</span>
+      <span class="text-gray-800 dark:text-gray-50 font-medium">
+        🎵 Music Player
+      </span>
       <span
         class="text-gray-800 text-lg transition-transform duration-500"
         [class.rotate-180]="isExpanded"
@@ -22,35 +28,98 @@
     </div>
 
     <!-- Contenido -->
-    <div class="relative p-6">
-      <!-- Carátula -->
-      <img
-        src="https://telegra.ph/file/2acfcad8d39e49d95addd.jpg"
-        alt="idk - Highvyn, Taylor Shin"
-        class="w-64 h-64 mx-auto rounded-lg mb-4 shadow-lg shadow-purple-100"
-      />
+    @if (playlist.length > 0) {
+      <div class="relative p-6 overflow-y-auto max-h-[calc(100vh-6rem)]">
+        <!-- Imagen y título -->
+        <img
+          [src]="currentTrack?.thumbnail"
+          [alt]="currentTrack?.title"
+          class="w-64 h-64 mx-auto rounded-lg mb-4 shadow-lg shadow-purple-100 object-cover"
+        />
+        <h2
+          class="text-xl font-semibold text-center text-gray-900 dark:text-gray-50 truncate"
+        >
+          {{ currentTrack?.title }}
+        </h2>
+        <p class="text-gray-600 text-sm text-center dark:text-gray-400 mb-4">
+          {{ currentTrack?.author }}
+        </p>
 
-      <!-- Título -->
-      <h2 class="text-xl font-semibold text-center text-gray-900 dark:text-gray-50">idk</h2>
-      <p class="text-gray-600 text-sm text-center dark:text-gray-400">Highvyn, Taylor Shin</p>
+        <!-- Botones de control -->
+        <div class="mt-6 flex justify-center items-center">
+          <button
+            class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600"
+            (click)="prev()"
+          >
+            ⏮
+          </button>
 
-      <!-- Controles -->
-      <div class="mt-6 flex justify-center items-center">
-        <button class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600">⏮</button>
-        <button class="p-4 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600 mx-4">▶️</button>
-        <button class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600">⏭</button>
+          <button
+            class="p-4 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600 mx-4"
+            (click)="playPause()"
+          >
+            {{ isPlaying ? '⏸' : '▶️' }}
+          </button>
+
+          <button
+            class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600"
+            (click)="next()"
+          >
+            ⏭
+          </button>
+        </div>
+
+        <!-- Progreso visual (placeholder por ahora) -->
+        <div class="mt-6 bg-gray-200 h-2 rounded-full overflow-hidden">
+          <div
+            class="bg-purple-500 h-2 rounded-full transition-all duration-300"
+            style="width: 50%"
+          ></div>
+        </div>
+
+        <div
+          class="flex justify-between mt-2 text-sm text-gray-600 dark:text-gray-50"
+        >
+          <span>--:--</span>
+          <span>--:--</span>
+        </div>
+
+        <!-- Lista de canciones -->
+        <ul class="mt-6 space-y-3">
+          @for (song of playlist; track song.videoId; let i = $index) {
+            <li
+              (click)="currentIndex = i; loadVideo()"
+              class="flex items-center gap-3 p-2 rounded-lg cursor-pointer transition
+                     hover:bg-gray-100 dark:hover:bg-gray-800"
+              [class.bg-purple-100]="i === currentIndex"
+              [class.dark:bg-gray-600]="i === currentIndex"
+            >
+              <img
+                [src]="song.thumbnail"
+                class="w-12 h-12 rounded-md object-cover"
+                [alt]="song.title"
+              />
+              <div class="flex flex-col overflow-hidden">
+                <span
+                  class="text-sm font-medium text-gray-900 dark:text-gray-50 truncate"
+                  >{{ song.title }}</span
+                >
+                <span
+                  class="text-xs text-gray-600 dark:text-gray-300 truncate"
+                  >{{ song.author }}</span
+                >
+              </div>
+            </li>
+          }
+        </ul>
       </div>
-
-      <!-- Barra de progreso -->
-      <div class="mt-6 bg-gray-200 h-2 rounded-full">
-        <div class="bg-purple-500 h-2 rounded-full w-1/2 transition-all duration-300"></div>
+    } @else {
+      <div class="p-6 text-center text-gray-700 dark:text-gray-300">
+        Cargando lista de reproducción...
       </div>
-
-      <!-- Tiempo -->
-      <div class="flex justify-between mt-2 text-sm text-gray-600 dark:text-gray-50">
-        <span>1:57</span>
-        <span>3:53</span>
-      </div>
-    </div>
+    }
   </div>
+
+  <!-- Reproductor oculto -->
+  <div id="yt-player" class="hidden"></div>
 </div>

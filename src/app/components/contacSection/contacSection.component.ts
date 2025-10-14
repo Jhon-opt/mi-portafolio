@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 @Component({
   selector: 'contac-section',
   imports: [ ReactiveFormsModule],
@@ -15,6 +16,11 @@ export class ContacSectionComponent {
   isSubmitted = signal(false);
   hasError = signal(false);
 
+
+  private serviceId = 'default_service'; // Tu Service ID de EmailJS
+  private templateId = 'template_i585c08'; // Tu Template ID de EmailJS
+  private publicKey = 'k2Gp1i1QePiJPxYQo'; // Tu Public Key de EmailJS
+
   // reactive form con validators
   contactForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -22,7 +28,10 @@ export class ContacSectionComponent {
     subject: ['', [Validators.required, Validators.minLength(3)]],
     message: ['', [Validators.required, Validators.minLength(10)]],
   });
-
+  ngOnInit() {
+    // Inicializa EmailJS con tu Public Key
+    emailjs.init({ publicKey: this.publicKey });
+  }
   // helpers
   control(name: string) {
     return this.contactForm.get(name)!;
@@ -38,20 +47,35 @@ export class ContacSectionComponent {
 
     if (this.contactForm.invalid) {
       this.hasError.set(true);
+      // Limpia el error después de 5 segundos
+      setTimeout(() => this.hasError.set(false), 5000);
       return;
     }
 
     this.isPosting.set(true);
     this.hasError.set(false);
 
-    // 🚧 Simulación de envío
-    setTimeout(() => {
-      this.isPosting.set(false);
-      this.isSubmitted.set(true);
-      this.contactForm.reset();
-
-      // ocultar mensaje tras 4 segundos
-      setTimeout(() => this.isSubmitted.set(false), 4000);
-    }, 1500);
+    // Envía el formulario con EmailJS
+    emailjs
+      .sendForm(this.serviceId, this.templateId, '#contact-form', {
+        publicKey: this.publicKey
+      })
+      .then(
+        () => {
+          console.log('✅ Email enviado exitosamente!');
+          this.isSubmitted.set(true);
+          this.contactForm.reset();
+          // Limpia el mensaje de éxito después de 4 segundos
+          setTimeout(() => this.isSubmitted.set(false), 4000);
+        },
+        (error: EmailJSResponseStatus) => {
+          console.error('❌ Error al enviar email:', error.text);
+          this.hasError.set(true);
+          setTimeout(() => this.hasError.set(false), 5000);
+        }
+      )
+      .finally(() => {
+        this.isPosting.set(false);
+      });
   }
  }

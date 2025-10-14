@@ -57,3 +57,44 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## 🚀 Tecnologías utilizadas
+
+- **Angular 20+**
+- **TypeScript**
+- **Tailwind CSS**
+- **YouTube IFrame API**
+- **Netlify** (para despliegue)
+
+---
+
+## 💻 Instalación y ejecución local
+
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/tuusuario/trendylook.git
+   cd trendylook
+   
+2. Instala las dependencias:
+npm install
+
+3. Configura las variables de entorno (ver sección abajo).
+
+4. Inicia el servidor de desarrollo:
+
+ng serve
+
+## ⚙️ Variables de entorno
+Crea el archivo src/environments/environment.ts con el siguiente contenido:
+
+export const environment = {
+  production: false,
+  youtubeApiKey: 'TU_API_KEY_AQUI',
+  playlistId: 'TU_PLAYLIST_ID_AQUI'
+};
+
+## 📄 Licencia
+
+Este proyecto fue desarrollado por Jhon Mario Durango Rodríguez con fines educativos y de portafolio.
+Puedes usar el código con fines académicos o de aprendizaje.

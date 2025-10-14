@@ -1,6 +1,6 @@
 <section id="contact" class="min-h-screen flex items-center justify-center px-6 bg-gradient-to-b from-gray-100 to-purple-500 dark:from-gray-700 dark:to-gray-900">
   <div class="max-w-2xl w-full bg-white/30 backdrop-blur-md dark:bg-gray-800/30 backdrop-blur-sm border border-gray-100 dark:border-gray-600 rounded-xl p-8 shadow-lg">
-    <h3 class="text-3xl font-mono font-bold mb-4 text-center text-gray-900 dark:text-indigo-400">Contactame</h3>
+    <h3 class="text-3xl font-mono font-bold mb-4 text-center text-gray-900 dark:text-indigo-400">Contáctame</h3>
 
     @if (isSubmitted()) {
       <div class="mb-4 p-3 rounded-md bg-green-50 text-green-700 border border-green-100">
@@ -14,11 +14,11 @@
       </div>
     }
 
-    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-4" novalidate>
+    <form id="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-4" novalidate>
       <!-- Nombre -->
       <div>
         <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200">Nombre</label>
-        <input formControlName="name" type="text"
+        <input name="name" formControlName="name" type="text"
                class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-300 dark:bg-gray-900 dark:border-gray-700 dark:text-white"
                placeholder="Tu nombre" />
         @if (hasControlError('name','required')) {
@@ -29,10 +29,10 @@
         }
       </div>
 
-      <!-- Email -->
+      <!-- Email (usa name="user_email" para EmailJS) -->
       <div>
         <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200">Correo</label>
-        <input formControlName="email" type="email"
+        <input name="user_email" formControlName="email" type="email"
                class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-300 dark:bg-gray-900 dark:border-gray-700 dark:text-white"
                placeholder="correo@ejemplo.com" />
         @if (hasControlError('email','required')) {
@@ -46,8 +46,8 @@
       <!-- Asunto -->
       <div>
         <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200">Asunto</label>
-        <input formControlName="subject" type="text"
-               class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-300 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-200 "
+        <input name="subject" formControlName="subject" type="text"
+               class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-300 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-200"
                placeholder="Motivo del contacto" />
         @if (hasControlError('subject','required')) {
           <p class="text-xs text-red-600 mt-1">El asunto es requerido.</p>
@@ -60,7 +60,7 @@
       <!-- Mensaje -->
       <div>
         <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-200">Mensaje</label>
-        <textarea formControlName="message" rows="5"
+        <textarea name="message" formControlName="message" rows="5"
                   class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-300 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-200"
                   placeholder="Escribe tu mensaje..."></textarea>
         @if (hasControlError('message','required')) {
@@ -73,7 +73,7 @@
 
       <!-- Botones -->
       <div class="flex justify-between items-center">
-        <button type="submit"
+        <button id="submit-btn" type="submit"
                 [disabled]="contactForm.invalid || isPosting()"
                 class="px-6 py-2 rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50">
           @if (isPosting()) { Enviando... } @else { Enviar }

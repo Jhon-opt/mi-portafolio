@@ -1,34 +1,39 @@
-<nav class="sticky top-0 z-10 bg-purple-300/30 dark:bg-gray-900/30 backdrop-blur-md border-b border-gray-200 dark:border-gray-600" style="backdrop-filter: blur(12px); background-color: rgba(255, 255, 255, 0.1);">
+<nav
+  class="sticky top-0 z-10 bg-purple-300/30 dark:bg-gray-900/30 backdrop-blur-md border-b border-gray-200 dark:border-gray-600"
+  style="backdrop-filter: blur(12px); background-color: rgba(255, 255, 255, 0.1);"
+>
   <div class="max-w mx-auto px-4">
-    <div class="grid grid-cols-3 items-center h-16">
-      <!-- Logo al inicio (izquierda) - Columna 1 -->
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo al inicio -->
       <span class="text-2xl text-gray-900 dark:text-white font-semibold">Logo</span>
 
-      <!-- Enlaces centrados - Columna 2 -->
-      <div class="flex justify-center space-x-6">
-        <a href="#" class="hover:text-indigo-500 dark:hover:text-indigo-400">Dashboard</a>
-        <a href="#" class="hover:text-indigo-500 dark:hover:text-indigo-400">About</a>
-        <a href="#" class="hover:text-indigo-500 dark:hover:text-indigo-400">Projects</a>
-        <a href="#" class="hover:text-indigo-500 dark:hover:text-indigo-400">Contact</a>
+      <!-- Links en pantallas medianas y grandes -->
+      <div class="hidden md:flex space-x-6">
+        <button (click)="selectSection('dashboard')" class="text-gray-900 hover:text-indigo-500  dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer">Dashboard</button>
+        <button (click)="selectSection('about')" class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer">About</button>
+        <button (click)="selectSection('projects')" class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer">Projects</button>
+        <button (click)="selectSection('contact')" class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer">Contact</button>
       </div>
 
-      <!-- Toggle al final (derecha) - Columna 3 -->
-      <div class="flex items-center justify-end">
-        <!-- Sol (Light Mode) fuera del label -->
+      <!-- Parte derecha: toggle + botón hamburguesa -->
+      <div class="flex items-center gap-2">
+        <!-- ☀️ -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 stroke-current text-yellow-500 mr-1"
+          class="h-6 w-6 stroke-current text-yellow-500 hidden md:block"
           fill="none"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
         >
           <circle cx="12" cy="12" r="5" />
-          <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+          <path
+            d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
+          />
         </svg>
 
-        <!-- Label solo para el checkbox -->
-        <label class="inline-flex items-center cursor-pointer" style="padding: 2px; height: 24px;">
+        <!-- Toggle -->
+        <label class="inline-flex items-center cursor-pointer">
           <input
             type="checkbox"
             class="toggle toggle-md"
@@ -37,10 +42,10 @@
           />
         </label>
 
-        <!-- Luna (Dark Mode) fuera del label -->
+        <!-- 🌙 -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 stroke-current text-gray-800 dark:text-white ml-1"
+          class="h-6 w-6 stroke-current text-gray-800 dark:text-white hidden md:block"
           fill="none"
           stroke-width="2"
           stroke-linecap="round"
@@ -48,7 +53,38 @@
         >
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
+
+        <!-- Botón hamburguesa visible solo en mobile -->
+        <button
+          class="md:hidden p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+          (click)="toggleMenu()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-gray-900 dark:text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
       </div>
     </div>
+
+    <!-- Menú colapsable en mobile -->
+    @if (isMenuOpen()) {
+      <div class="md:hidden flex flex-col space-y-2 mt-2">
+        <button (click)="selectSection('dashboard')" class="text-black hover:text-indigo-500 dark:text-gray-50  dark:hover:text-indigo-400">Dashboard</button>
+        <button (click)="selectSection('about')" class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400">About</button>
+        <button (click)="selectSection('projects')" class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400">Projects</button>
+        <button (click)="selectSection('contact')" class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400">Contact</button>
+      </div>
+    }
   </div>
 </nav>

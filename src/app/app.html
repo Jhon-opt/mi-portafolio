@@ -1,8 +1,7 @@
-<app-nav-bar/>
-<hero-section class="-mt-16" />
-
-<about-me-section/>
-<projects-section/>
-<contac-section/>
+<app-nav-bar (sectionSelected)="scrollToSection($event)" />
+<hero-section #dashboard class="-mt-16" />
+<about-me-section #about />
+<projects-section #projects />
+<contac-section #contact />
 <media-player/>
 <router-outlet />

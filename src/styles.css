@@ -2,7 +2,11 @@
 body {
   @apply  bg-purple-200   dark:bg-gray-900;
 }
-
+@media (orientation: landscape) {
+  .player-expanded-landscape {
+    max-height: 80vh; /* ocupa menos en horizontal */
+  }
+}
 @import "tailwindcss";
 @plugin "daisyui";
 
