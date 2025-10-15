@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '@environments/environment';
+
 
 /** 🔹 Interface para un ítem del playlist */
 interface YouTubeItem {
