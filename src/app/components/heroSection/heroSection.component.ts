@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'hero-section',
@@ -6,4 +7,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './heroSection.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeroSectionComponent { }
+export class HeroSectionComponent {
+  langService = inject(LanguageService);
+}

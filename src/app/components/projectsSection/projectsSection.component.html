@@ -1,145 +1,166 @@
 <!-- Projects Section -->
 <section
   id="projects"
-  class="mt-20 min-h-screen py-16 px-6 bg-gradient-to-b from-purple-200 to-gray-100 dark:from-gray-900 dark:to-gray-700"
+  appScrollReveal
+  class="min-h-screen py-24 px-6 bg-gray-50 dark:bg-gray-950 transition-colors duration-500"
 >
-  <div class="max-w-5xl mx-auto">
-    <h2
-      class="text-4xl md:text-5xl font-mono font-bold mb-12 text-center text-gray-900 dark:text-indigo-400"
-    >
-      Proyectos
-    </h2>
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-16 text-center">
+      <h2
+        class="text-4xl md:text-6xl font-mono font-bold mb-4 text-gray-900 dark:text-indigo-400 tracking-tight"
+      >
+        {{ langService.t().projects.title }}
+      </h2>
+      <div class="h-1.5 w-24 bg-indigo-500 mx-auto rounded-full"></div>
+    </div>
 
     <!-- Bento Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:auto-rows-[250px]">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:auto-rows-[280px]">
+      @for (project of projects(); track project.title) {
       <div
-        class="md:col-span-2 md:row-span-2 rounded-xl border border-gray-100 bg-white/40 backdrop-blur-md dark:border-gray-600 dark:bg-gray-800/30 shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+        [class.md:col-span-2]="project.isWide"
+        [class.md:row-span-2]="project.isLarge"
+        appSpotlight
+        appScrollReveal
+        class="group relative rounded-[2rem] border border-white/20 bg-white/30 backdrop-blur-xl dark:border-gray-700/50 dark:bg-gray-800/40 shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 spotlight-card perspective"
       >
-        <div class="grid grid-cols-1 md:grid-cols-2 h-full">
-          <img
-            src="resources/Calidad-aire.webp"
-            alt="Proyecto 1"
-            class="object-cover w-full h-full"
-          />
-          <div class="p-6 flex flex-col justify-between">
-            <div>
-              <h3
-                class="text-2xl font-mono font-semibold text-gray-900 dark:text-white"
-              >
-                Sistema de Monitereo calidad del aire
-              </h3>
-              <p class="text-gray-600 dark:text-gray-300 mt-2">
-                Una aplicación web responsiva construida con Angular con el
-                objetivo de mostrar los datos analizados por una serie de
-                sensores en la universidad distrital.
-              </p>
+        <div 
+          class="relative w-full h-full transition-all duration-700 preserve-3d"
+          [class.rotate-y-180]="flippedProject() === project.title"
+        >
+          <!-- FRONT SIDE -->
+          <div class="absolute inset-0 backface-hidden flex flex-col h-full" [class.md:flex-row]="project.isWide">
+            <!-- Image Container -->
+            <div class="relative overflow-hidden" [class.md:w-1/2]="project.isWide" [class.h-48]="!project.isWide && !project.isLarge" [class.h-full]="project.isLarge || project.isWide">
+              <img
+                [src]="project.image"
+                [alt]="project.title"
+                class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300"></div>
+              
+              <!-- Architecture Toggle Button -->
+              @if (project.architecture) {
+                <button 
+                  (click)="toggleFlip(project.title)"
+                  class="absolute top-4 right-4 p-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur rounded-xl shadow-lg text-indigo-600 hover:scale-110 transition-all z-20"
+                  [title]="langService.t().projects.arch"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                </button>
+              }
             </div>
-            <a
-              href="https://github.com/Jhon-opt/Proyecto-G.git"
-              target="_blank"
-              class="mt-4 self-center inline-block px-5 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow-md transition"
-            >
-              Ver en GitHub
-            </a>
+
+            <!-- Content Container -->
+            <div class="p-8 flex flex-col justify-between flex-1" [class.md:w-1/2]="project.isWide">
+              <div>
+                <h3 class="text-2xl font-mono font-bold text-gray-900 dark:text-white mb-3">
+                  {{ project.title }}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-4 md:line-clamp-none">
+                  {{ project.description }}
+                </p>
+              </div>
+              <div class="flex gap-3 mt-6">
+                <a
+                  [href]="project.link"
+                  target="_blank"
+                  class="flex-1 inline-flex items-center justify-center px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/20 transition-all active:scale-95 text-sm"
+                >
+                  {{ langService.t().projects.view }}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- BACK SIDE (Architecture) -->
+          <div class="absolute inset-0 backface-hidden rotate-y-180 bg-indigo-600 p-8 flex flex-col justify-between text-white overflow-y-auto">
+            <div>
+              <div class="flex justify-between items-center mb-8">
+                <h4 class="text-xl font-mono font-bold uppercase tracking-tighter">{{ langService.t().projects.arch }}</h4>
+                <button (click)="toggleFlip(project.title)" class="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Architecture Diagram Flow -->
+              <div class="space-y-6 relative">
+                <!-- Line -->
+                <div class="absolute left-4 top-4 bottom-4 w-0.5 bg-white/20 border-dashed border-l"></div>
+
+                <div class="relative pl-10">
+                  <div class="absolute left-2.5 top-1.5 w-3.5 h-3.5 bg-white rounded-full border-4 border-indigo-600"></div>
+                  <div class="text-indigo-200 text-[10px] font-bold uppercase tracking-widest">Frontend / Client</div>
+                  <div class="font-bold text-lg">{{ project.architecture?.client }}</div>
+                </div>
+
+                <div class="relative pl-10">
+                  <div class="absolute left-2.5 top-1.5 w-3.5 h-3.5 bg-white rounded-full border-4 border-indigo-600"></div>
+                  <div class="text-indigo-200 text-[10px] font-bold uppercase tracking-widest">Backend / API</div>
+                  <div class="font-bold text-lg">{{ project.architecture?.server }}</div>
+                </div>
+
+                <div class="relative pl-10">
+                  <div class="absolute left-2.5 top-1.5 w-3.5 h-3.5 bg-white rounded-full border-4 border-indigo-600"></div>
+                  <div class="text-indigo-200 text-[10px] font-bold uppercase tracking-widest">Database / Infrastructure</div>
+                  <div class="font-bold text-lg">{{ project.architecture?.db }}</div>
+                </div>
+              </div>
+            </div>
+
+            <button (click)="toggleFlip(project.title)" class="w-full py-3 bg-white text-indigo-600 font-bold rounded-xl hover:bg-indigo-50 transition-colors">
+              {{ langService.t().projects.back }}
+            </button>
           </div>
         </div>
       </div>
+      }
 
-      <!-- Proyecto 2: Pequeño (1x1) -->
+      <!-- Dynamic Clock Card -->
       <div
-        class="rounded-xl border border-gray-100 bg-white/40 backdrop-blur-md dark:border-gray-600 dark:bg-gray-800/30 shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+        appSpotlight
+        appScrollReveal
+        class="rounded-[2rem] border border-white/20 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 backdrop-blur-xl dark:border-gray-700/50 dark:bg-gray-800/40 shadow-lg overflow-hidden flex flex-col justify-center items-center p-8 text-center spotlight-card"
       >
-        <div class="flex flex-col h-full">
-          <img
-            src="resources/Wallpaper GIF.webp"
-            alt="Proyecto 2"
-            class="object-cover w-full h-40"
-          />
-          <div class="p-4 flex flex-col justify-between flex-grow">
-            <div>
-              <h3
-                class="text-xl font-mono font-semibold text-gray-900 dark:text-white"
-              >
-                {{ customDate() | date }}
-              </h3>
-              <p
-                class="text-gray-600 dark:text-gray-300 mt-1 text-sm font-mono"
-              >
-                Hora Colombia: {{ customDate() | date : "shortTime" }}
-              </p>
-            </div>
-          </div>
+        <div class="mb-4 p-4 rounded-full bg-indigo-100 dark:bg-indigo-900/30">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
         </div>
+        <h3 class="text-3xl font-mono font-bold text-gray-900 dark:text-white">
+          {{ customDate() | date : "HH:mm:ss" : undefined : langService.currentLang() }}
+        </h3>
+        <p class="text-indigo-600 dark:text-indigo-400 font-mono font-medium mt-2">
+          {{ customDate() | date : "EEEE, d MMMM" : undefined : langService.currentLang() }}
+        </p>
+        <p class="text-gray-500 dark:text-gray-400 text-xs mt-4 uppercase tracking-widest">
+          {{ langService.t().projects.time }}
+        </p>
       </div>
+    </div>
 
-      <!-- Proyecto 3: Pequeño (1x1) -->
-      <div
-  class="md:row-span-2 rounded-xl border border-gray-100 bg-white/40 backdrop-blur-md dark:border-gray-600 dark:bg-gray-800/30 shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
->
-
-        <div class="flex flex-col h-full">
-          <img
-            src="resources/CountryApp.webp"
-            alt="Proyecto 3"
-            class="object-cover w-full h-1/2"
-          />
-          <div class="p-3 flex flex-col justify-between">
-            <div>
-              <h3
-                class="text-xl font-mono font-semibold text-gray-900 dark:text-white"
-              >
-                Country-App
-              </h3>
-              <p class="text-gray-600 dark:text-gray-300 mt-1 text-sm">
-                Aplicación web construida con Angular que permite buscar países,
-                ver detalles y filtrar por continente mediante una API REST.
-              </p>
-            </div>
-            <a
-              href="https://github.com/Jhon-opt/country-app.git"
-              target="_blank"
-              class="mt-2 self-center inline-block px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow-md transition"
-            >
-              Ver en GitHub
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Proyecto 4: Horizontal (2x1) -->
-      <div
-        class="md:col-span-2 border border-gray-100 rounded-xl bg-white/40 backdrop-blur-md dark:border-gray-600 dark:bg-gray-800/30 shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+    <!-- Show More Button -->
+    <div class="mt-20 text-center" appScrollReveal>
+      <button
+        (click)="toggleShowAll()"
+        class="group relative inline-flex items-center gap-3 px-10 py-4 bg-white dark:bg-gray-900 text-indigo-600 dark:text-indigo-400 font-bold rounded-2xl border-2 border-indigo-500 shadow-xl hover:bg-indigo-500 hover:text-white transition-all duration-300 active:scale-95"
       >
-        <div class="grid grid-cols-1 md:grid-cols-2 h-full">
-          <img
-            src="resources/trendyLook.webp"
-            alt="Proyecto 4"
-            class="object-cover w-full h-full"
-          />
-          <div class="p-6 flex flex-col justify-between">
-            <div>
-              <h3
-                class="text-2xl font-mono font-semibold text-gray-900 dark:text-white"
-              >
-                Trendy Look
-              </h3>
-              <p class="text-gray-600 text-sm dark:text-gray-300 mt-2">
-                TrendyLook es una aplicación web de comercio electrónico
-                enfocada en la venta de ropa moderna para hombres, mujeres y
-                niños.Cuenta con un sistema de autenticación que diferencia
-                entre usuarios regulares, y administradores
-              </p>
-            </div>
-            <a
-              href="https://github.com/Jhon-opt/Trendy-Look.git"
-              target="_blank"
-              class="mt-4 self-center inline-block px-5 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow-md transition"
-            >
-              Ver en GitHub
-            </a>
-          </div>
-        </div>
-      </div>
+        <span>{{ showAll() ? langService.t().projects.less : langService.t().projects.more }}</span>
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          class="h-5 w-5 transition-transform duration-300" 
+          [class.rotate-180]="showAll()"
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
     </div>
   </div>
 </section>

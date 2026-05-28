@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { environment } from '@environments/environment';
-
+import { LanguageService } from '../../services/language.service';
 
 /** 🔹 Interface para un ítem del playlist */
 interface YouTubeItem {
@@ -73,6 +73,8 @@ declare global {
 })
 export class MediaPlayerComponent implements OnInit, OnDestroy {
   private http = inject(HttpClient);
+  private cdr = inject(ChangeDetectorRef);
+  langService = inject(LanguageService);
   private player: YT.Player | null = null;
 
   playlist: YouTubeItem[] = [];
@@ -96,7 +98,7 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
     const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=15&playlistId=${environment.playlistId}&key=${environment.youtubeApiKey}`;
 
     this.http.get<YouTubeApiResponse>(url).subscribe({
-      next: (res) => {
+      next: (res: YouTubeApiResponse) => {
         this.playlist = res.items.map((item) => ({
           title: item.snippet.title,
           author: item.snippet.videoOwnerChannelTitle,
@@ -104,6 +106,7 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
           videoId: item.snippet.resourceId.videoId,
         }));
         this.initPlayer();
+        this.cdr.markForCheck(); // Fuerza la actualización para cargar la miniatura inicial
       },
       error: (err) => console.error('Error al cargar playlist:', err),
     });
@@ -123,7 +126,7 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
         playerVars: { autoplay: 0 },
         events: {
           onReady: () => console.log('✅ Player ready'),
-          onStateChange: (event) => this.onStateChange(event),
+          onStateChange: (event: YT.PlayerEvent) => this.onStateChange(event),
         },
       });
     } else {
@@ -133,16 +136,15 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
   }
 
   /** 🔹 Carga diferida del script de YouTube para evitar render-blocking */
-private loadYouTubeApi(): void {
-  if (typeof window !== 'undefined' && !window.YT) {
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    tag.defer = true;
-    tag.async = true;
-    document.body.appendChild(tag);
+  private loadYouTubeApi(): void {
+    if (typeof window !== 'undefined' && !window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      tag.defer = true;
+      tag.async = true;
+      document.body.appendChild(tag);
+    }
   }
-}
-
 
   /** 🔹 Maneja cambios de estado (play, pause, end) */
   onStateChange(event: YT.PlayerEvent): void {
@@ -152,9 +154,11 @@ private loadYouTubeApi(): void {
         break;
       case window.YT.PlayerState.PLAYING:
         this.isPlaying = true;
+        this.cdr.markForCheck();
         break;
       case window.YT.PlayerState.PAUSED:
         this.isPlaying = false;
+        this.cdr.markForCheck();
         break;
     }
   }
@@ -187,6 +191,7 @@ private loadYouTubeApi(): void {
     const nextId = this.playlist[this.currentIndex].videoId;
     this.player.loadVideoById(nextId);
     this.isPlaying = true;
+    this.cdr.markForCheck();
   }
 
   /** 🔹 Devuelve el track actual */

@@ -1,65 +1,169 @@
 <!-- About Me Section -->
 <section
   id="about"
-  class="h-screen flex items-center justify-center px-6 bg-gradient-to-b from-gray-100 to-purple-200 dark:from-gray-700 dark:to-gray-900"
+  class="min-h-screen flex items-center justify-center py-20 px-6 bg-white dark:bg-gray-950 transition-colors duration-500"
 >
-  <div class="max-w-5xl mx-auto">
-    <h2 class="text-4xl md:text-5xl font-mono font-bold mb-10 text-center text-gray-900 dark:text-indigo-400">
-      Sobre mí
-    </h2>
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      
+      <!-- Profile Image Side -->
+      <div class="relative flex justify-center lg:justify-end">
+        <div class="relative group">
+          <!-- Background decorative shapes -->
+          <div class="absolute -inset-4 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+          
+          <div class="relative overflow-hidden rounded-3xl border-2 border-indigo-100 dark:border-indigo-900/50 shadow-2xl">
+            <img
+              src="resources/imagen-portf.jpg"
+              alt="Foto de Jhon Mario"
+              class="w-64 h-64 md:w-80 md:h-80 object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
+            />
+          </div>
+        </div>
+      </div>
 
-    <!-- Foto flotante con shape -->
-   <div class="flex justify-center md:float-left md:mr-8 mb-6 md:mb-0 shape-outside-circle">
-  <img
-    src="resources/imagen-portf.jpg"
-    alt="Foto de Jhon Mario"
-    class="w-48 h-48 md:w-64 md:h-64 rounded-full shadow-xl border-4 border-indigo-500"
-  />
-</div>
+      <!-- Content Side -->
+      <div class="flex flex-col">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-sm font-mono font-bold w-fit mb-6">
+          <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+          {{ langService.t().about.badge }}
+        </div>
 
-    <p
-      class="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed"
-    >
-      Soy <span class="font-semibold">Jhon Mario Durango Rodríguez</span>,
-      desarrollador Front-End egresado de la
-      <strong>Universidad Distrital Francisco José de Caldas</strong>,
-      especializado en <strong>Angular</strong> y <strong>TypeScript</strong>.
-      Me apasiona crear <strong>interfaces responsivas</strong> y optimizadas,
-      aplicando <strong>buenas prácticas de código</strong> con un enfoque en la
-      experiencia del usuario.
-    </p>
-    <p
-      class="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mt-4"
-    >
-      Muy curioso por naturaleza y con un hambre de aprender, exploro
-      tecnologías para innovar en retos
-      tecnológicos. ¡Abierto a conectar y colaborar en ideas transformadoras!
-    </p>
+        <h2 class="text-4xl md:text-5xl font-mono font-bold mb-8 text-gray-900 dark:text-white">
+          {{ langService.t().about.title }}
+        </h2>
 
-    <!-- Botones -->
-    <div class="mt-8 flex flex-wrap gap-4 justify-center">
-      <a
-        href="https://github.com/Jhon-opt"
-        target="_blank"
-        class="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow-md transition"
-      >
-        GitHub
-      </a>
-      <a
-        href="https://drive.google.com/drive/folders/1acaJXhp0Xd3-O0Gpeh5mXv2QlnT7mgiW?usp=sharing"
-        target="_blank"
-        class="px-6 py-3 bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-lg shadow-md transition"
-      >
-        Ver CV
-      </a>
+        <div class="space-y-6 text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+          <p>
+            {{ langService.t().about.p1 }}
+          </p>
+          <p>
+            {{ langService.t().about.p2 }}
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-12 flex flex-wrap gap-6">
+          <a
+            href="https://drive.google.com/drive/folders/1acaJXhp0Xd3-O0Gpeh5mXv2QlnT7mgiW?usp=sharing"
+            target="_blank"
+            appMagnetic
+            class="group relative inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-all active:scale-95 overflow-hidden"
+          >
+            <span class="relative z-10">{{ langService.t().about.cv }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </a>
+          
+          <a
+            href="https://github.com/Jhon-opt"
+            target="_blank"
+            appMagnetic
+            class="inline-flex items-center gap-2 px-8 py-4 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl font-bold hover:bg-gray-200 dark:hover:bg-gray-800 transition-all active:scale-95"
+          >
+            <span>{{ langService.t().about.github }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills Dashboard -->
+    <div class="mt-32">
+      <div class="text-center mb-16">
+        <h3 class="text-3xl md:text-4xl font-mono font-bold text-gray-900 dark:text-white mb-4">{{ langService.t().about.skillsTitle }}</h3>
+        <div class="h-1.5 w-20 bg-indigo-500 mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        @for (cat of ['Frontend', 'Backend', 'Herramientas']; track cat) {
+          <div 
+            appSpotlight
+            class="p-8 rounded-3xl bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-800 transition-all hover:shadow-xl hover:border-indigo-500/30 spotlight-card"
+          >
+            <h4 class="text-xl font-mono font-bold text-indigo-600 dark:text-indigo-400 mb-6 flex items-center gap-2">
+              @if (cat === 'Frontend') {
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+              } @else if (cat === 'Backend') {
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" /></svg>
+              } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>
+              }
+              {{ cat }}
+            </h4>
+            <div class="space-y-4">
+              @for (skill of getSkillsByCategory(cat); track skill.name) {
+                <div class="flex items-center justify-between group">
+                  <span class="text-gray-700 dark:text-gray-200 font-medium group-hover:text-indigo-500 transition-colors">{{ skill.name }}</span>
+                  <span 
+                    class="px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-colors"
+                    [class]="skill.level === 'Avanzado' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 
+                             skill.level === 'Intermedio' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 
+                             'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'"
+                  >
+                    {{ skill.level }}
+                  </span>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- GitHub Statistics Section -->
+    <div class="mt-32">
+      <div class="text-center mb-16">
+        <h3 class="text-3xl md:text-4xl font-mono font-bold text-gray-900 dark:text-white mb-4">{{ langService.t().about.githubTitle }}</h3>
+        <div class="h-1.5 w-20 bg-indigo-500 mx-auto rounded-full mb-4"></div>
+        <p class="text-gray-500 dark:text-gray-400 font-mono">{{ langService.t().about.githubSubtitle }} Jhon-opt</p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Stats Card -->
+        <div class="bg-gray-50 dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-gray-200 dark:border-slate-800 flex justify-center overflow-hidden transition-all hover:border-indigo-500/30">
+          <img 
+            src="https://github-readme-stats.vercel.app/api?username=Jhon-opt&show_icons=true&theme=default&hide_border=true&title_color=4f46e5&icon_color=4f46e5&text_color=4b5563&bg_color=f9fafb" 
+            alt="GitHub Stats"
+            class="block dark:hidden max-w-full h-auto"
+          />
+          <img 
+            src="https://github-readme-stats.vercel.app/api?username=Jhon-opt&show_icons=true&theme=dark&hide_border=true&title_color=818cf8&icon_color=818cf8&text_color=94a3b8&bg_color=0f172a" 
+            alt="GitHub Stats"
+            class="hidden dark:block max-w-full h-auto"
+          />
+        </div>
+        
+        <!-- Languages Card -->
+        <div class="bg-gray-50 dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-gray-200 dark:border-slate-800 flex justify-center overflow-hidden transition-all hover:border-indigo-500/30">
+          <img 
+            src="https://github-readme-stats.vercel.app/api/top-langs/?username=Jhon-opt&layout=compact&theme=default&hide_border=true&title_color=4f46e5&text_color=4b5563&bg_color=f9fafb" 
+            alt="Top Languages"
+            class="block dark:hidden max-w-full h-auto"
+          />
+          <img 
+            src="https://github-readme-stats.vercel.app/api/top-langs/?username=Jhon-opt&layout=compact&theme=dark&hide_border=true&title_color=818cf8&text_color=94a3b8&bg_color=0f172a" 
+            alt="Top Languages"
+            class="hidden dark:block max-w-full h-auto"
+          />
+        </div>
+      </div>
+      <p class="mt-8 text-center text-xs text-gray-400 dark:text-gray-500 italic">
+        {{ langService.t().about.githubNote }}
+      </p>
     </div>
   </div>
 </section>
 
 <style>
-  @layer utilities {
-    .shape-outside-circle {
-      shape-outside: circle();
-    }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
   }
 </style>

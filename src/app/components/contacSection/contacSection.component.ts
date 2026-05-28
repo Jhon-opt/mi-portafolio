@@ -1,15 +1,18 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
+import { LanguageService } from '../../services/language.service';
+import { SpotlightDirective } from '../../shared/spotlight.directive';
 @Component({
   selector: 'contac-section',
-  imports: [ ReactiveFormsModule],
+  imports: [ ReactiveFormsModule, SpotlightDirective],
   templateUrl: './contacSection.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContacSectionComponent {
+export class ContacSectionComponent implements OnInit {
   private fb = inject(FormBuilder);
-  // contactService = inject(ContactService); // ejemplo si tuvieras uno
+  langService = inject(LanguageService);
+  // ... rest of component
 
   // signals para estado
   isPosting = signal(false);

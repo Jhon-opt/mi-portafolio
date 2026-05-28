@@ -1,7 +1,19 @@
+<app-particle-bg />
+<app-reading-progress />
+<app-command-palette (actionExecuted)="scrollToSection($event)" />
+
 <app-nav-bar (sectionSelected)="scrollToSection($event)" />
-<hero-section #dashboard class="-mt-16" />
-<about-me-section #about />
+<hero-section #dashboard class="-mt-16" appScrollReveal />
+<about-me-section #about appScrollReveal />
 <projects-section #projects />
-<contac-section #contact />
+
+<!-- Mini-Game Container -->
+<section class="py-20 px-6 bg-white dark:bg-gray-950 transition-colors duration-500" appScrollReveal>
+  <div class="max-w-xl mx-auto">
+    <app-commit-catcher />
+  </div>
+</section>
+
+<contac-section #contact appScrollReveal />
 <media-player/>
 <router-outlet />

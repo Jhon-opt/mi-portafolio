@@ -1,101 +1,60 @@
-# MiPortafolio
+# 🚀 Jhon Mario Durango - Full-Stack Portfolio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+Este es mi portafolio profesional, rediseñado para reflejar mi evolución como **Desarrollador Full-Stack** con un fuerte enfoque en **Backend (.NET/Node.js)** y arquitecturas modernas en **Frontend (Angular 20)**.
 
-## Development server
+## ✨ Características Principales
 
-To start a local development server, run:
+-   **🌍 Internacionalización (i18n):** Soporte completo para Español e Inglés con cambio en tiempo real mediante Angular Signals.
+-   **⌨️ Command Palette:** Consola interactiva (`Ctrl + K`) para navegación rápida y acciones del sistema.
+-   **🛡️ Architecture Visualizer:** Efecto flip 3D en tarjetas de proyectos para mostrar diagramas de flujo de datos (Client -> Server -> DB).
+-   **📊 GitHub Live Stats:** Integración dinámica con la API de GitHub para mostrar métricas de contribución reales.
+-   **🌌 Interactive Background:** Sistema de partículas que reaccionan al cursor del usuario.
+-   **🕹️ Commitment Catcher Game:** Un mini-juego interactivo integrado como Easter Egg.
+-   **🔦 Spotlight Effect:** Resplandor dinámico en tarjetas de cristal (*Glassmorphism*).
+-   **🪄 Scroll Reveal:** Animaciones de entrada fluidas basadas en Intersection Observer.
+-   **🎶 Premium Media Player:** Reproductor de música minimalista integrado con la API de YouTube.
 
-```bash
-ng serve
-```
+## 🛠️ Tech Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+-   **Frontend:** Angular 20, TypeScript, Tailwind CSS 4, DaisyUI 5.
+-   **Backend (en proyectos):** C# / .NET 8.0, Node.js (NestJS/Express), Go, Python.
+-   **Infraestructura:** PostgreSQL, Docker, Redis, Firebase.
 
-## Code scaffolding
+## 📦 Instalación y Ejecución
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1.  **Instalar dependencias:**
+    ```bash
+    npm install
+    ```
 
-```bash
-ng generate component component-name
-```
+2.  **Configurar Entorno:**
+    Crea el archivo `src/app/environments/environment.ts` con tus llaves de YouTube:
+    ```typescript
+    export const environment = {
+      production: false,
+      youtubeApiKey: 'TU_API_KEY',
+      playlistId: 'TU_PLAYLIST_ID'
+    };
+    ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+3.  **Iniciar Servidor de Desarrollo:**
+    ```bash
+    npm start
+    ```
 
-```bash
-ng generate --help
-```
+## 🖼️ Guía de Recursos (Imágenes)
 
-## Building
+Para que el portafolio luzca impecable, asegúrate de añadir los siguientes archivos en `public/`:
 
-To build the project run:
+### Logos de Tecnologías (`public/icons/`)
+-   **Archivos:** `csharp.png`, `postgres.png`, `docker.png`, `node.png`, `angular.webp`, `ts.png`.
+-   **Tamaño:** 256x256 px o 512x512 px (PNG transparente o WebP).
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-
-## 🚀 Tecnologías utilizadas
-
-- **Angular 20+**
-- **TypeScript**
-- **Tailwind CSS**
-- **YouTube IFrame API**
-- **Netlify** (para despliegue)
+### Proyectos (`public/resources/`)
+-   **Proyecto Tobon:** `proyecto-tobon.webp` (1200x800 px).
+-   **Teslo Shop:** `teslo-shop.webp` (1200x600 px).
+-   **Puntum Suite:** `puntum.webp` (800x800 px).
+-   **Otros Proyectos:** 800x600 px.
 
 ---
-
-## 💻 Instalación y ejecución local
-
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/Jhon-opt/mi-portafolio.git
-   cd mi-portafolio
-   
-2. Instala las dependencias:
-
-npm install
-
-3. Configura las variables de entorno (ver sección abajo).
-
-4. Inicia el servidor de desarrollo:
-
-ng serve
-
-## ⚙️ Variables de entorno
-Crea el archivo src/environments/environment.ts con el siguiente contenido:
-
-export const environment = {
-  production: false,
-  youtubeApiKey: 'TU_API_KEY_AQUI',
-  playlistId: 'TU_PLAYLIST_ID_AQUI'
-};
-
-## 📄 Licencia
-
-Este proyecto fue desarrollado por Jhon Mario Durango Rodríguez con fines educativos y de portafolio.
-Puedes usar el código con fines académicos o de aprendizaje.
+Desarrollado con ❤️ por Jhon Mario Durango.

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output, signal } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,6 +18,7 @@ export class NavBarComponent {
   }
 
    themeService = inject(ThemeService);
+   langService = inject(LanguageService);
    isMenuOpen = signal(false);
 
   toggleMenu() {
@@ -25,5 +27,9 @@ export class NavBarComponent {
 
   toggleTheme() {
     this.themeService.toggle();
+  }
+
+  toggleLang() {
+    this.langService.toggleLanguage();
   }
  }

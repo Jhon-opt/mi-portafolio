@@ -6,10 +6,26 @@ import { MediaPlayerComponent } from "./shared/mediaPlayer/mediaPlayer.component
 import { AboutMeSectionComponent } from "./components/aboutMe-section/aboutMe-section.component";
 import { ProjectsSectionComponent } from "./components/projectsSection/projectsSection.component";
 import { ContacSectionComponent } from "./components/contacSection/contacSection.component";
+import { ParticleBgComponent } from "./shared/particle-bg/particle-bg.component";
+import { CommandPaletteComponent } from "./shared/command-palette/command-palette.component";
+import { CommitCatcherComponent } from "./shared/commit-catcher/commit-catcher.component";
+import { ReadingProgressComponent } from "./shared/reading-progress/reading-progress.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeroSectionComponent, NavBarComponent, MediaPlayerComponent, AboutMeSectionComponent, ProjectsSectionComponent, ContacSectionComponent],
+  imports: [
+    RouterOutlet, 
+    HeroSectionComponent, 
+    NavBarComponent, 
+    MediaPlayerComponent, 
+    AboutMeSectionComponent, 
+    ProjectsSectionComponent, 
+    ContacSectionComponent,
+    ParticleBgComponent,
+    CommandPaletteComponent,
+    CommitCatcherComponent,
+    ReadingProgressComponent
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -23,12 +39,6 @@ export class App implements AfterViewInit {
 
   ngAfterViewInit() {
     // Verifica que las referencias estén disponibles
-    console.log('Referencias:', {
-      dashboard: this.dashboard,
-      about: this.about,
-      projects: this.projects,
-      contact: this.contact
-    });
   }
 
   scrollToSection(section: string) {

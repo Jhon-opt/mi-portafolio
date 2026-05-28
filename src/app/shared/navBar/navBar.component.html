@@ -1,95 +1,72 @@
 <nav
-  class="sticky top-0 z-10 bg-purple-300/30 dark:bg-gray-900/30 backdrop-blur-md border-b border-gray-200 dark:border-gray-600"
-  style="
-    backdrop-filter: blur(12px);
-    background-color: rgba(255, 255, 255, 0.1);
-  "
+  class="sticky top-0 z-50 bg-white/70 dark:bg-gray-950/70 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-800/50 transition-all duration-300"
 >
-  <div class="max-w mx-auto px-4">
-    <div class="flex items-center justify-between h-16">
-      <!-- Logo al inicio -->
-      <!-- <span class="text-2xl text-gray-900 dark:text-white font-semibold">Logo</span> -->
-      <img
-        src="resources/github (1).png"
-        alt="Logo"
-        class="h-10 w-auto object-contain rounded-2xl"
-      />
-
-      <!-- Links en pantallas medianas y grandes -->
-      <div class="hidden md:flex space-x-6">
-        <button
-          (click)="selectSection('dashboard')"
-          class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer"
-        >
-          Inicio
-        </button>
-        <button
-          (click)="selectSection('about')"
-          class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer"
-        >
-          Sobre mi
-        </button>
-        <button
-          (click)="selectSection('projects')"
-          class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer"
-        >
-          Proyectos
-        </button>
-        <button
-          (click)="selectSection('contact')"
-          class="text-gray-900 hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400 cursor-pointer"
-        >
-          Contáctame
-        </button>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <div class="flex items-center gap-2 group cursor-pointer" (click)="selectSection('dashboard')">
+        <div class="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform">
+          <span class="text-white font-mono font-bold text-xl">JD</span>
+        </div>
+        <span class="hidden sm:block text-xl font-mono font-bold text-gray-900 dark:text-white">Portfolio</span>
       </div>
 
-      <!-- Parte derecha: toggle + botón hamburguesa -->
-      <div class="flex items-center gap-2">
-        <!-- ☀️ -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 stroke-current text-yellow-500 hidden md:block"
-          fill="none"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center space-x-8">
+        @for (item of [
+          {id: 'dashboard', label: langService.t().nav.home},
+          {id: 'about', label: langService.t().nav.about},
+          {id: 'projects', label: langService.t().nav.projects},
+          {id: 'contact', label: langService.t().nav.contact}
+        ]; track item.id) {
+          <button
+            (click)="selectSection(item.id)"
+            class="text-sm font-mono font-medium text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white transition-colors relative group"
+          >
+            {{ item.label }}
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 group-hover:w-full transition-all duration-300"></span>
+          </button>
+        }
+      </div>
+
+      <!-- Right Side: Theme Toggle + Language + Mobile Menu -->
+      <div class="flex items-center gap-4">
+        <!-- Language Toggle -->
+        <button 
+          (click)="toggleLang()"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gray-100 dark:bg-gray-900 text-xs font-bold font-mono text-indigo-600 dark:text-indigo-400 hover:ring-2 hover:ring-indigo-500/50 transition-all"
         >
-          <circle cx="12" cy="12" r="5" />
-          <path
-            d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
-          />
-        </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+          </svg>
+          {{ langService.currentLang() === 'es' ? 'ES' : 'EN' }}
+        </button>
 
-        <!-- Toggle -->
-        <label class="inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            class="toggle border border-black dark:border-white toggle-md"
-            [checked]="themeService.theme() === 'dark'"
-            (change)="toggleTheme()"
-          />
-        </label>
-
-        <!-- 🌙 -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 stroke-current text-gray-800 dark:text-white hidden md:block"
-          fill="none"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+        <!-- Theme Toggle Button -->
+        <button 
+          (click)="toggleTheme()"
+          class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:ring-2 hover:ring-indigo-500/50 transition-all"
+          [title]="themeService.theme() === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
         >
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
+          @if (themeService.theme() === 'dark') {
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          }
+        </button>
 
-        <!-- Botón hamburguesa visible solo en mobile -->
+        <!-- Mobile Menu Button -->
         <button
-          class="md:hidden p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
+          class="md:hidden p-2.5 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white"
           (click)="toggleMenu()"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 text-gray-900 dark:text-white"
+            class="h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -98,40 +75,29 @@
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
+              [attr.d]="isMenuOpen() ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'"
             />
           </svg>
         </button>
       </div>
     </div>
 
-    <!-- Menú colapsable en mobile -->
+    <!-- Mobile Menu -->
     @if (isMenuOpen()) {
-    <div class="md:hidden flex flex-col space-y-2 mt-2">
-      <button
-        (click)="selectSection('dashboard')"
-        class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400"
-      >
-        Inicio
-      </button>
-      <button
-        (click)="selectSection('about')"
-        class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400"
-      >
-        Sobre mi
-      </button>
-      <button
-        (click)="selectSection('projects')"
-        class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400"
-      >
-        Proyectos
-      </button>
-      <button
-        (click)="selectSection('contact')"
-        class="text-black hover:text-indigo-500 dark:text-gray-50 dark:hover:text-indigo-400"
-      >
-        Contáctame
-      </button>
+    <div class="md:hidden py-6 border-t border-gray-100 dark:border-gray-800 flex flex-col space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
+      @for (item of [
+        {id: 'dashboard', label: 'Inicio'},
+        {id: 'about', label: 'Sobre mí'},
+        {id: 'projects', label: 'Proyectos'},
+        {id: 'contact', label: 'Contacto'}
+      ]; track item.id) {
+        <button
+          (click)="selectSection(item.id); toggleMenu()"
+          class="text-left px-4 py-2 text-lg font-mono font-medium text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white"
+        >
+          {{ item.label }}
+        </button>
+      }
     </div>
     }
   </div>

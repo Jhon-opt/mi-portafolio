@@ -1,124 +1,104 @@
-<div
-  class="fixed bottom-4 w-80
-         left-1/2 -translate-x-1/2
-         md:right-4 md:left-auto md:translate-x-0 z-50"
->
-  <!-- Contenedor animado -->
-  <div
-    class="bg-white/20 dark:bg-gray-700/30 backdrop-blur-md rounded-lg shadow-xl
-           transition-all duration-500 ease-in-out overflow-hidden
-           hover:-translate-y-2 hover:shadow-2xl border border-gray-100 dark:border-gray-400"
-    [class.max-h-12]="!isExpanded"
-    [class.max-h-[600px]]="isExpanded"
+<div class="fixed bottom-6 right-0 left-0 md:left-auto md:right-6 z-50 flex flex-col items-center md:items-end gap-4 px-6 md:px-0 pointer-events-none">
+  
+  <!-- Mini Player (Always visible, acts as toggle) -->
+  <div 
+    (click)="isExpanded = !isExpanded"
+    class="pointer-events-auto flex items-center gap-4 p-2 bg-white/70 dark:bg-gray-900/80 backdrop-blur-2xl border border-white/20 dark:border-gray-800 shadow-2xl rounded-2xl cursor-pointer hover:scale-105 transition-all duration-300 group max-w-sm w-full md:w-80"
   >
-    <!-- Header -->
-    <div
-      class="h-12 flex items-center justify-between px-4 cursor-pointer select-none"
-      (click)="isExpanded = !isExpanded"
-    >
-      <span class="text-gray-800 dark:text-gray-50 font-medium">
-        🎵 Music Player
-      </span>
-      <span
-        class="text-gray-800 text-lg transition-transform duration-500"
-        [class.rotate-180]="isExpanded"
-      >
-        ⬆️
-      </span>
+    <div class="relative w-12 h-12 rounded-xl overflow-hidden shadow-lg group-hover:rotate-6 transition-transform flex-shrink-0 bg-gray-200 dark:bg-gray-800">
+      @if (currentTrack?.thumbnail) {
+        <img [src]="currentTrack?.thumbnail" class="object-cover w-full h-full" alt="cover">
+      } @else {
+        <div class="w-full h-full flex items-center justify-center">
+          <svg class="w-6 h-6 text-gray-400 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+          </svg>
+        </div>
+      }
+      @if (isPlaying) {
+        <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <div class="flex gap-0.5 items-end h-3">
+            <div class="w-0.5 bg-white animate-music-1"></div>
+            <div class="w-0.5 bg-white animate-music-2 h-full"></div>
+            <div class="w-0.5 bg-white animate-music-3"></div>
+          </div>
+        </div>
+      }
     </div>
-
-    <!-- Contenido -->
-    @if (playlist.length > 0) {
-      <div class="relative p-6  overflow-y-auto max-h-[calc(100vh-6rem)]">
-        <!-- Imagen y título -->
-        <img
-          [src]="currentTrack?.thumbnail"
-          [alt]="currentTrack?.title"
-          class="w-64 h-64 mx-auto rounded-lg mb-4 shadow-lg shadow-purple-100 object-cover"
-        />
-        <h2
-          class="text-xl font-semibold text-center text-gray-900 dark:text-gray-50 truncate"
-        >
-          {{ currentTrack?.title }}
-        </h2>
-        <p class="text-gray-600 text-sm text-center dark:text-gray-400 mb-4">
-          {{ currentTrack?.author }}
-        </p>
-
-        <!-- Botones de control -->
-        <div class="mt-6 flex justify-center items-center">
-          <button
-            class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600"
-            (click)="prev()"
-          >
-            ⏮
-          </button>
-
-          <button
-            class="p-4 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600 mx-4"
-            (click)="playPause()"
-          >
-            {{ isPlaying ? '▶️' : '⏸' }}
-          </button>
-
-          <button
-            class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600"
-            (click)="next()"
-          >
-            ⏭
-          </button>
-        </div>
-
-        <!-- Progreso visual (placeholder por ahora) -->
-        <!-- <div class="mt-6 bg-gray-200 h-2 rounded-full overflow-hidden">
-          <div
-            class="bg-purple-500 h-2 rounded-full transition-all duration-300"
-            style="width: 50%"
-          ></div>
-        </div>
-
-        <div
-          class="flex justify-between mt-2 text-sm text-gray-600 dark:text-gray-50"
-        >
-          <span>--:--</span>
-          <span>--:--</span>
-        </div> -->
-
-        <!-- Lista de canciones -->
-        <ul class="mt-6 space-y-1 pb-3">
-          @for (song of playlist; track song.videoId; let i = $index) {
-            <li
-              (click)="currentIndex = i; loadVideo()"
-              class="flex items-center gap-3 p-2 rounded-lg cursor-pointer transition
-                     hover:bg-gray-100 dark:hover:bg-gray-800"
-              [class.bg-purple-100]="i === currentIndex"
-              [class.dark:bg-gray-600]="i === currentIndex"
-            >
-              <img
-                [src]="song.thumbnail"
-                class="w-12 h-12 rounded-md object-cover"
-                [alt]="song.title"
-              />
-              <div class="flex flex-col overflow-hidden">
-                <span
-                  class="text-sm font-medium text-gray-900 dark:text-gray-50 truncate"
-                  >{{ song.title }}</span
-                >
-                <span
-                  class="text-xs text-gray-600 dark:text-gray-300 truncate"
-                  >{{ song.author }}</span
-                >
-              </div>
-            </li>
-          }
-        </ul>
-      </div>
-    } @else {
-      <div class="p-6 text-center text-gray-700 dark:text-gray-300">
-        Cargando lista de reproducción...
-      </div>
-    }
+    <div class="flex-1 min-w-0 pr-2">
+      <h4 class="text-sm font-bold text-gray-900 dark:text-white truncate">{{ currentTrack?.title || langService.t().player.loading }}</h4>
+      <p class="text-[10px] text-indigo-500 font-mono uppercase tracking-widest">{{ isPlaying ? langService.t().player.playing : langService.t().player.paused }}</p>
+    </div>
+    <button class="p-2 text-gray-400 group-hover:text-indigo-600 transition-colors">
+       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-500" [class.rotate-180]="isExpanded" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+       </svg>
+    </button>
   </div>
+
+  <!-- Full Player Context -->
+  @if (isExpanded) {
+    <div class="pointer-events-auto w-full md:w-[380px] bg-white/80 dark:bg-gray-950/90 backdrop-blur-3xl border border-white/20 dark:border-gray-800 shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-[2.5rem] overflow-hidden animate-in slide-in-from-bottom-10 fade-in duration-500 flex flex-col max-h-[80vh]">
+      
+      <!-- Track Info -->
+      <div class="p-8 pb-4">
+        <div class="aspect-square w-full rounded-3xl overflow-hidden shadow-2xl mb-6 group relative">
+          <img [src]="currentTrack?.thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+        <div class="text-center">
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white truncate px-4">{{ currentTrack?.title }}</h3>
+          <p class="text-indigo-500 font-medium mt-1">{{ currentTrack?.author }}</p>
+        </div>
+      </div>
+
+      <!-- Main Controls -->
+      <div class="px-8 pb-6 flex items-center justify-center gap-8">
+        <button (click)="prev()" class="p-3 text-gray-600 dark:text-gray-400 hover:text-indigo-500 active:scale-90 transition-all">
+          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+
+        <button (click)="playPause()" class="w-16 h-16 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg shadow-indigo-500/40 active:scale-95 transition-all">
+          @if (!isPlaying) {
+            <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          } @else {
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          }
+        </button>
+
+        <button (click)="next()" class="p-3 text-gray-600 dark:text-gray-400 hover:text-indigo-500 active:scale-90 transition-all">
+          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12v12h2V6z"/></svg>
+        </button>
+      </div>
+
+      <!-- Playlist -->
+      <div class="flex-1 overflow-y-auto px-4 pb-8 space-y-1">
+        <div class="px-4 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">{{ langService.t().player.nextTracks }}</div>
+        @for (song of playlist; track song.videoId; let i = $index) {
+          <div 
+            (click)="currentIndex = i; loadVideo()"
+            class="flex items-center gap-4 p-3 rounded-2xl cursor-pointer transition-all duration-300"
+            [class]="i === currentIndex ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-300'"
+          >
+            <div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+              <img [src]="song.thumbnail" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="text-sm font-bold truncate">{{ song.title }}</div>
+              <div class="text-xs opacity-60 truncate">{{ song.author }}</div>
+            </div>
+            @if (i === currentIndex && isPlaying) {
+               <div class="flex gap-0.5 items-end h-3">
+                <div class="w-0.5 bg-white animate-music-1"></div>
+                <div class="w-0.5 bg-white animate-music-2"></div>
+                <div class="w-0.5 bg-white animate-music-3"></div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
 
   <!-- Reproductor oculto -->
   <div id="yt-player" class="hidden"></div>
